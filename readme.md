@@ -32,3 +32,10 @@ project
 1. Go in the app directory
 2. Run the `docker compose up` command (or `docker compose up -d` if you want to be detached)
 3. Open `http://localhost:3000` in your browser
+
+## Remarks
+
+- Both server and clients use multi-stage builds to optimize caching capabilities of docker and therefore the final image
+- The server image build is very long (~10min). I optimized it using `cargo-chef` which lets us separate the build of the dependencies from the build of our application binary itself, so they can be cached and not re-compiled each time the source code is modified. Tho this trick will not really be useful in the context of this project as you'll only build it once.
+- I did my best to comment as far as i can the Dockerfiles.
+- 

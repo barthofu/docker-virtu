@@ -1,5 +1,2 @@
 # data
 database/data/
-
-# secrets
-.env

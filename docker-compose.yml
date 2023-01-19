@@ -27,14 +27,13 @@ services:
       context: ./server
       dockerfile: ./Dockerfile
     restart: always
-    env_file:
-      - ./server/.env
     ports:
       - 3001:8000
     networks:
       - bartholome_gili_devops_1
 
-  db:
+  database:
+    container_name: database
     image: postgres
     restart: always
     environment:
@@ -42,8 +41,6 @@ services:
       POSTGRES_PASSWORD: example
     ports:
       - 5432:5432
-    env_file:
-      - ./database/.env
     volumes:
       - ./database/data:/var/lib/postgresql/data
     networks:

@@ -2,7 +2,6 @@
 # == dependencies ==
 # ==================
 
-# shortcut to avoid having to write the full image name for the base image
 FROM lukemathwalker/cargo-chef:latest AS chef
 WORKDIR /app
 
@@ -29,15 +28,23 @@ RUN cargo build --release --bin server
 # ==================
 # ==== runner ======
 # ==================
-FROM alpine:latest as runner
+FROM debian:buster-slim as runner
 WORKDIR /app
 
-# copy needed files for the binary from the previous stage
-COPY --from=builder /app/Rocket.toml ./
-# copy the binary from the previous stage
-COPY --from=builder /app/target/release/server ./server
+RUN addgroup --system --gid 1001 server \
+    && adduser --system --uid 1001 server
 
-RUN chmod u+x ./server
+# install needed libraries
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# copy needed files for the binary from the previous stage
+COPY --from=builder /app/Rocket.toml .
+# copy the binary from the previous stage
+COPY --from=builder /app/target/release/server .
+
+USER server
 
 # start the app
-ENTRYPOINT ["./server"]
+CMD ["./server"]
