@@ -33,3 +33,18 @@ services:
       - 3001:8000
     networks:
       - bartholome_gili_devops_1
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: example
+    ports:
+      - 5432:5432
+    env_file:
+      - ./database/.env
+    volumes:
+      - ./database/data:/var/lib/postgresql/data
+    networks:
+      - bartholome_gili_devops_1
