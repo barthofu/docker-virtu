@@ -23,8 +23,6 @@
 			
 			"@core/*": ["src/core/*"],
             "@server/*": ["src/server/*"],
-            "@services": ["src/core/services"],
-			"@config": ["src/core/config"],
 			"@utils/*": ["src/core/utils/*"],
             "@lib/*": ["src/core/utils/lib/*"],
 			

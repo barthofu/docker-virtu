@@ -1,10 +1,10 @@
 import { publicProcedure, router } from '@server/trpc'
 
-import { helloWorldRouter } from './helloWorld'
+import { randomRouter } from './random'
 
 export const appRouter = router({
 
-    helloWorld: helloWorldRouter
+    random: randomRouter
 })
    
 export type AppRouter = typeof appRouter
