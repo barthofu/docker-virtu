@@ -1,7 +1,8 @@
 # Projet virtualisation Docker
 
 > This project was made for the course of "Admin virtualisation" of [Mr. Anthony Busson](https://anthonybusson.fr/). <br>
-It consists of a really simple web app with distincts client and server, in order to demonstrate the use of Docker and Docker Compose.
+
+#### It consists of a really simple web app that is generating random numbers with a refresh button. It has distinct client and server, in order to demonstrate the use of Docker and Docker Compose.
 
 ## Architecture
 
@@ -17,10 +18,12 @@ The application is composed of three containers:
 ```bash
 project 
 ├── docker-compose.yml # the docker-compose confi file, which manage the containers
+├── database # the database config and data folder
+│   └─ data # contains the docker volume of the pgsql database
 ├── server # the server source code
 │   ├─ Dockerfile
 │   ├─ .dockerignore
-│   ├─ ...
+│   └─ ...
 └── client # the client source code
     ├─ Dockerfile
     ├─ .dockerignore
@@ -36,6 +39,5 @@ project
 ## Remarks
 
 - Both server and clients use multi-stage builds to optimize caching capabilities of docker and therefore the final image
-- The server image build is very long (~10min). I optimized it using `cargo-chef` which lets us separate the build of the dependencies from the build of our application binary itself, so they can be cached and not re-compiled each time the source code is modified. Tho this trick will not really be useful in the context of this project as you'll only build it once.
+- The server image build is very long (~10min). I optimized it using `cargo-chef` which lets us separate the build of the dependencies from the build of our application binary itself, so they can be cached and not re-compiled each time the source code is modified. But this trick will not really be useful in the context of this project as you'll only build it once.
 - I did my best to comment as far as i can the Dockerfiles.
-- 
