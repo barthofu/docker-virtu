@@ -38,6 +38,7 @@ project
 
 ## Remarks
 
-- Both server and clients use multi-stage builds to optimize caching capabilities of docker and therefore the final image
-- The server image build is very long (~10min). I optimized it using `cargo-chef` which lets us separate the build of the dependencies from the build of our application binary itself, so they can be cached and not re-compiled each time the source code is modified. But this trick will not really be useful in the context of this project as you'll only build it once.
+- Both server and clients use multi-stage builds to optimize caching capabilities of docker and therefore the final image.
+- **The server image build is very long (~10min)**. I optimized it using `cargo-chef` which lets us separate the build of the dependencies from the build of our application binary itself, so they can be cached and not re-compiled each time the source code is modified. But this trick will not really be useful in the context of this project as you'll only build it once.
 - I did my best to comment as far as i can the Dockerfiles.
+- Applications communicate with each other through the `docker-compose` network, using the container names as hostnames (also known as *link aliases*).
